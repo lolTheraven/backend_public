@@ -30,7 +30,7 @@ public class News {
     private String content;
 
     @Column(name = "category")
-    @NotBlank(message = "The category is required.")
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @Column(name = "created_at")
