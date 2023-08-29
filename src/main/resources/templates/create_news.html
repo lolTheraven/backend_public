@@ -9,63 +9,67 @@
           crossorigin="anonymous">
 </head>
 <body>
-    <div class = "container">
-        <div class = "row">
-            <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                <h1 class = "text-center"> Create New News </h1>
-                <div class = "card-body">
-                    <form th:action="@{/news}" th:object = "${news}" method="POST">
-                        <div class ="form-group">
-                            <label> Name </label>
-                            <input
-                                    type = "text"
-                                    name = "name"
-                                    th:field = "*{name}"
-                                    class = "form-control"
-                                    placeholder="Enter Name"
-                            />
-                        </div>
+    <form th:action="@{/news}" th:object = "${news}" method="POST">
+        <div class = "container">
+            <div class="row d-flex justify-content-between align-items-center my-5">
+                <h1 class="m-0">Vytvoření nové novinky</h1>
+                <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Vytvořit</button>
+            </div>
+            <div class = "row">
+                <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                    <h1 class = "text-center"> Create New News </h1>
+                    <div class = "card-body">
 
-                        <div class ="form-group">
-                            <label> Perex </label>
-                            <input
-                                    type = "text"
-                                    name = "perex"
-                                    th:field = "*{perex}"
-                                    class = "form-control"
-                                    placeholder="Enter Perex"
-                            />
-                        </div>
+                            <div class ="form-group">
+                                <label> Name </label>
+                                <input
+                                        type = "text"
+                                        name = "name"
+                                        th:field = "*{name}"
+                                        class = "form-control"
+                                        placeholder="Enter Name"
+                                />
+                            </div>
 
-                        <div class ="form-group">
-                            <label> Content </label>
-                            <input
-                                    type = "text"
-                                    name = "content"
-                                    th:field = "*{content}"
-                                    class = "form-control"
-                                    placeholder="Enter Content"
-                            />
-                        </div>
+                            <div class ="form-group">
+                                <label> Perex </label>
+                                <input
+                                        type = "text"
+                                        name = "perex"
+                                        th:field = "*{perex}"
+                                        class = "form-control"
+                                        placeholder="Enter Perex"
+                                />
+                            </div>
 
-                        <div class ="form-group">
-                            <label> Category </label>
-                            <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
-                                <option th:value="INTERNAL">INTERNAL</option>
-                                <option th:value="PUBLIC">PUBLIC</option>
-                            </select>
-                        </div>
+                            <div class ="form-group">
+                                <label> Content </label>
+                                <input
+                                        type = "text"
+                                        name = "content"
+                                        th:field = "*{content}"
+                                        class = "form-control"
+                                        placeholder="Enter Content"
+                                />
+                            </div>
 
-                        <div class = "box-footer">
-                            <button type="submit" class = "btn btn-primary">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
+                            <div class ="form-group">
+                                <label> Category </label>
+                                <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
+                                    <option th:value="INTERNAL">INTERNAL</option>
+                                    <option th:value="PUBLIC">PUBLIC</option>
+                                </select>
+                            </div>
 
+                            <div class = "box-footer">
+
+                            </div>
+
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
 </html>
