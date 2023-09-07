@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create News</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<form th:action="@{/news/{id} (id=${news.id})}" th:object = "${news}" method="POST">
+    <div class = "container">
+        <div class="row d-flex justify-content-between align-items-center my-5">
+            <h1 class="m-0">Vytvoření nové novinky</h1>
+            <div>
+                <a th:href="@{/news}" class="btn btn-primary btn-sm m-0 p-2 text-white">Seznam novinek</a>
+                <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Uložit</button>
+            </div>
+        </div>
+        <div class="row d-flex flex-column border border-info rounded mx-3 mb-5 p-4">
+            <h2>Základní informace</h2><br />
+            <div class="d-flex flex-row justify-content-between mx-5">
+                <div>
+                    <div class ="form-group ">
+                        <label> Název * </label>
+                        <textarea
+                                type = "text"
+                                name = "name"
+                                th:text = "*{name}"
+                                class = "form-control"
+                                cols = "40"
+                                rows="1"
+                                style="resize: none"
+                        ></textarea>
+                    </div>
+                    <div class ="form-group d-flex flex-column">
+                        <label> Kategorie * </label>
+                        <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
+                            <option value="" disabled selected hidden>Vyberte kategorii...</option>
+                            <option th:value="INTERNAL">Interní</option>
+                            <option th:value="PUBLIC">Veřejné</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label>Úvodní fotografie *</label>
+                        <input type="file"
+                               height="80px"
+                               width="110px"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row d-flex flex-column border border-info rounded mx-3 p-4">
+            <h2>Obsah novinky</h2><br />
+            <div class="d-flex flex-row justify-content-between mx-5">
+                <div class ="form-group">
+                    <label> Perex * </label>
+                    <textarea
+                            cols = "40"
+                            rows="7"
+                            type = "text"
+                            name = "perex"
+                            th:text = "*{perex}"
+                            class = "form-control"
+                            style="resize: none"
+                    ></textarea>
+                </div>
+                <div class ="form-group">
+                    <label> Text novinky * </label>
+                    <textarea
+                            cols = "40"
+                            rows="7"
+                            type = "text"
+                            name = "content"
+                            th:text = "*{content}"
+                            class = "form-control"
+                            style="resize: none"
+                    ></textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+</body>
+</html>
+

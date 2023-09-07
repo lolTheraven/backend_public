@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row d-flex justify-content-between align-items-center my-5">
             <h1 class="m-0">Novinky</h1>
-            <a th:href = "@{/news/new}" class = "btn btn-primary btn-sm m-0 p-2">Vytvořit novinku</a>
+            <a th:href = "@{/news/new}" class = "btn btn-primary btn-sm m-0 p-2 text-white">Vytvořit novinku</a>
         </div>
         <div class="row mx-3">
             <table class = "table table-striped table-bordered">
@@ -22,16 +22,17 @@
                     <th>Název</th>
                     <th>Kategorie</th>
                     <th>Datum vytvoření</th>
+                    <th>Detail</th>
                 </tr>
                 </thead>
-
                 <tbody>
-                <tr th:each = "news: ${news}">
-                    <td th:text = "${news.id}"></td>
-                    <td th:text = "${news.name}"></td>
-                    <td th:text = "${news.category}"></td>
-                    <td th:text="${#temporals.format(news.createdAt, 'dd.MM.yyyy')}"></td>
-                </tr>
+                        <tr th:each = "news: ${news}">
+                                <td th:text = "${news.id}"><a th:href="@{/news/{id}(id=${news.id})}"></a></td>
+                                <td th:text = "${news.name}"><a th:href="@{/news/{id}(id=${news.id})}"></a></td>
+                                <td th:text = "${news.category}"><a th:href="@{/news/{id}(id=${news.id})}"></a></td>
+                                <td th:text="${#temporals.format(news.createdAt, 'dd.MM.yyyy')}"></td>
+                                <td><a th:href="@{/news/{id}(id=${news.id})}">Detail</a></td>
+                        </tr>
                 </tbody>
 
             </table>

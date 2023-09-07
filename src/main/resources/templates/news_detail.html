@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>News Detail</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row d-flex justify-content-between align-items-center my-5">
+            <h1 class="m-0">Novinka ID</h1>
+            <div>
+                <a th:href="@{/news}" class="btn btn-primary btn-sm m-0 p-2 text-white">Seznam novinek</a>
+                <a th:href="@{/news/edit/{id}(id=${news.id})}" class = "btn btn-primary btn-sm m-0 p-2 text-white">Editovat</a>
+            </div>
+        </div>
+        <div class="row d-flex flex-column border border-info rounded mx-3 mb-5 p-4">
+            <h2>Základní informace</h2><br />
+            <div class="d-flex flex-row justify-content-between mx-5">
+                <div>
+                    <div class ="form-group ">
+                        <h5> Název </h5>
+                        <div th:text="*{news.name}"></div>
+                        <h5> Datum vytvoření </h5>
+                        <div th:text="${#temporals.format(news.createdAt, 'dd.MM.yyyy')}"></div>
+                        <h5> Kategorie </h5>
+                        <div th:text="*{news.category}"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label>Úvodní fotografie</label>
+                        <input type="file"
+                               height="80px"
+                               width="110px"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row d-flex flex-column border border-info rounded mx-3 p-4">
+            <h2>Obsah novinky</h2><br />
+            <div class="d-flex flex-row justify-content-between mx-5">
+                <div class ="form-group">
+                    <h5>Perex</h5>
+                    <div th:text="*{news.perex}"></div>
+                </div>
+                <div class ="form-group">
+                    <h5>Text novinky</h5>
+                    <div th:text="*{news.content}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

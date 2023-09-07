@@ -27,7 +27,11 @@ public class NewsService {
         return newsRepository.save(news);
     }
 
-    public Optional<News> getNews(Long id){
-        return newsRepository.findById(id);
+    public News getOneNews(Long id){
+        return newsRepository.findById(id).get();
+    }
+
+    public News updateNews(News news){
+        return newsRepository.save(news);
     }
 }

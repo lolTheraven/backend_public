@@ -13,63 +13,80 @@
         <div class = "container">
             <div class="row d-flex justify-content-between align-items-center my-5">
                 <h1 class="m-0">Vytvoření nové novinky</h1>
-                <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Vytvořit</button>
+                <div>
+                    <a th:href="@{/news}" class="btn btn-primary btn-sm m-0 p-2 text-white">Seznam novinek</a>
+                    <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Vytvořit</button>
+                </div>
             </div>
-            <div class = "row">
-                <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                    <h1 class = "text-center"> Create New News </h1>
-                    <div class = "card-body">
+            <div class="row d-flex flex-column border border-info rounded mx-3 mb-5 p-4">
+                <h2>Základní informace</h2><br />
+                <div class="d-flex flex-row justify-content-between mx-5">
+                    <div>
+                        <div class ="form-group ">
+                            <label> Název * </label>
+                            <textarea
+                                    type = "text"
+                                    name = "name"
+                                    th:field = "*{name}"
+                                    class = "form-control"
+                                    cols = "40"
+                                    rows="1"
+                                    style="resize: none"
+                            ></textarea>
+                        </div>
+                        <div class ="form-group d-flex flex-column">
+                            <label> Kategorie * </label>
+                            <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
+                                <option value="" disabled selected hidden>Vyberte kategorii...</option>
+                                <option th:value="INTERNAL">Interní</option>
+                                <option th:value="PUBLIC">Veřejné</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>Úvodní fotografie *</label>
+                            <input type="file"
+                                   height="80px"
+                                   width="110px"/>
+                        </div>
+                    </div>
 
-                            <div class ="form-group">
-                                <label> Name </label>
-                                <input
-                                        type = "text"
-                                        name = "name"
-                                        th:field = "*{name}"
-                                        class = "form-control"
-                                        placeholder="Enter Name"
-                                />
-                            </div>
+                </div>
+            </div>
 
-                            <div class ="form-group">
-                                <label> Perex </label>
-                                <input
-                                        type = "text"
-                                        name = "perex"
-                                        th:field = "*{perex}"
-                                        class = "form-control"
-                                        placeholder="Enter Perex"
-                                />
-                            </div>
-
-                            <div class ="form-group">
-                                <label> Content </label>
-                                <input
-                                        type = "text"
-                                        name = "content"
-                                        th:field = "*{content}"
-                                        class = "form-control"
-                                        placeholder="Enter Content"
-                                />
-                            </div>
-
-                            <div class ="form-group">
-                                <label> Category </label>
-                                <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
-                                    <option th:value="INTERNAL">INTERNAL</option>
-                                    <option th:value="PUBLIC">PUBLIC</option>
-                                </select>
-                            </div>
-
-                            <div class = "box-footer">
-
-                            </div>
-
-
+            <div class="row d-flex flex-column border border-info rounded mx-3 p-4">
+                <h2>Obsah novinky</h2><br />
+                <div class="d-flex flex-row justify-content-between mx-5">
+                    <div class ="form-group">
+                        <label> Perex * </label>
+                        <textarea
+                                cols = "40"
+                                rows="7"
+                                type = "text"
+                                name = "perex"
+                                th:field = "*{perex}"
+                                class = "form-control"
+                                style="resize: none"
+                        ></textarea>
+                    </div>
+                    <div class ="form-group">
+                        <label> Text novinky * </label>
+                        <textarea
+                                cols = "40"
+                                rows="7"
+                                type = "text"
+                                name = "content"
+                                th:field = "*{content}"
+                                class = "form-control"
+                                style="resize: none"
+                        ></textarea>
                     </div>
                 </div>
             </div>
+
         </div>
     </form>
 </body>
 </html>
+
