@@ -1,5 +1,6 @@
 package com.agentes.academy.backend.service;
 
+import com.agentes.academy.backend.domain.Category;
 import com.agentes.academy.backend.domain.News;
 import com.agentes.academy.backend.repository.NewsRepository;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,9 @@ public class NewsService {
 
     public News updateNews(News news){
         return newsRepository.save(news);
+    }
+
+    public List<News> getFilteredNews(Category category){
+        return newsRepository.findByCategory(category);
     }
 }

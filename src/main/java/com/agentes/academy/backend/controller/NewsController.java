@@ -1,5 +1,6 @@
 package com.agentes.academy.backend.controller;
 
+import com.agentes.academy.backend.domain.Category;
 import com.agentes.academy.backend.domain.News;
 import com.agentes.academy.backend.service.NewsService;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,14 @@ public class NewsController {
     }
 
     @GetMapping("/news")
-    public String listOfNews(Model model){
-        model.addAttribute("news", newsService.getAllNews());
+    public String listOfNews(Model model, Category category){
+
+        if(category != null){
+            model.addAttribute("news", newsService.getFilteredNews(category));
+        }
+        else {
+            model.addAttribute("news", newsService.getAllNews());
+        }
         return "news";
     }
 
@@ -62,5 +69,4 @@ public class NewsController {
         newsService.updateNews(existingNews);
         return "redirect:/news";
     }
-
 }
