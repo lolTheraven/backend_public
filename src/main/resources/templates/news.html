@@ -18,9 +18,10 @@
             <form th:action="@{/news}"  method="GET">
                 <div class="m-4 d-flex flex-column w-25">
                     <h4 class="mb-3">Kategorie</h4>
-                    <select type="text" name="category">
-                        <option>Interní</option>
-                        <option>Veřejný</option>
+                    <select type="text" name="category" required>
+                        <option selected disabled>Vyberte Kategorii...</option>
+                        <option th:value="Interní">Interní</option>
+                        <option th:value="Veřejný">Veřejný</option>
                     </select>
                 </div>
                 <div class="d-flex flex-row justify-content-end">

@@ -3,8 +3,10 @@ package com.agentes.academy.backend.controller;
 import com.agentes.academy.backend.domain.Category;
 import com.agentes.academy.backend.domain.News;
 import com.agentes.academy.backend.service.NewsService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,7 +54,12 @@ public class NewsController {
     }
 
     @PostMapping("/news")
-    public String createNews(@ModelAttribute("news") News news){
+    public String createNews(@Valid @ModelAttribute("news") News news, BindingResult bindingResult, Model model){
+        boolean errors = bindingResult.hasErrors();
+        if (errors){
+            model.addAttribute("news", news);
+            return "create_news";
+        }
         newsService.createNews(news);
         return "redirect:/news";
     }

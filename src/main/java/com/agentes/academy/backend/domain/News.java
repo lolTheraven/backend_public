@@ -17,12 +17,12 @@ public class News {
 
     @Column(name = "name")
     @NotBlank(message = "The name is required.")
-    @Size(min = 1, max = 200)
+    @Size(min = 1, max = 200, message = "The name must be between {min} and {max} characters long")
     private String name;
 
     @Column(name = "perex")
     @NotBlank(message = "The perex is required.")
-    @Size(min = 1, max = 450)
+    @Size(min = 1, max = 450, message = "The perex must be between {min} and {max} characters long")
     private String perex;
 
     @Column(name = "content")
