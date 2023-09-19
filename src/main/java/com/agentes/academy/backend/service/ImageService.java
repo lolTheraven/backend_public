@@ -8,8 +8,9 @@ import java.io.IOException;
 
 @Service
 public class ImageService {
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images";
 
     public void uploadImage(MultipartFile image) throws IllegalStateException, IOException {
-        image.transferTo(new File("E:\\springboot\\"+image.getOriginalFilename()));
+        image.transferTo(new File(uploadDirectory +image.getOriginalFilename()));
     }
 }
