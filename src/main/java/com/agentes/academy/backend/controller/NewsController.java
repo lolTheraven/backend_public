@@ -2,24 +2,26 @@ package com.agentes.academy.backend.controller;
 
 import com.agentes.academy.backend.domain.Category;
 import com.agentes.academy.backend.domain.News;
+import com.agentes.academy.backend.service.ImageService;
 import com.agentes.academy.backend.service.NewsService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Controller
 public class NewsController {
     private NewsService newsService;
+    private ImageService imageService;
 
-    public NewsController(NewsService newsService){
+    public NewsController(NewsService newsService, ImageService imageService){
         this.newsService = newsService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/news")
@@ -54,13 +56,14 @@ public class NewsController {
     }
 
     @PostMapping("/news")
-    public String createNews(@Valid @ModelAttribute("news") News news, BindingResult bindingResult, Model model){
+    public String createNews(@Valid @ModelAttribute("news") News news, BindingResult bindingResult, Model model, @RequestBody MultipartFile image) throws IOException {
         boolean errors = bindingResult.hasErrors();
         if (errors){
             model.addAttribute("news", news);
             return "create_news";
         }
         newsService.createNews(news);
+        imageService.uploadImage(image);
         return "redirect:/news";
     }
 
@@ -74,6 +77,12 @@ public class NewsController {
         existingNews.setCategory(news.getCategory());
         existingNews.setUpdatedAt(LocalDateTime.now());
         newsService.updateNews(existingNews);
+        return "redirect:/news";
+    }
+
+    @PostMapping("/images")
+    public String uploadImage(@RequestBody MultipartFile image) throws IOException {
+        imageService.uploadImage(image);
         return "redirect:/news";
     }
 }

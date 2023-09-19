@@ -64,12 +64,12 @@
                         <div class="form-group d-flex flex-column">
                             <div class="d-flex flex-row justify-content-between">
                                 <label>Úvodní fotografie *</label>
-                                <input type="file" id="file"
-                                       onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
-                                <label for="file" class="upload_btn">Vložit fotografii</label>
+                                <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/jpg"
+                                       onchange="document.getElementById('pic').src = window.URL.createObjectURL(this.files[0])">
+                                <label for="image" class="upload_btn">Vložit fotografii</label>
                             </div>
                             <div>
-                                <img id="image" alt="your image" width="337" height="180" />
+                                <img id="pic" alt="your image" width="337" height="180" />
                             </div>
                         </div>
                     </div>

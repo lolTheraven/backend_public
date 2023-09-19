@@ -2,6 +2,7 @@ package com.agentes.academy.backend.api;
 
 import com.agentes.academy.backend.domain.News;
 import com.agentes.academy.backend.service.NewsService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -27,12 +28,12 @@ public class ApiController {
     }
 
     @PostMapping("v1/news")
-    public News createNews(@RequestBody News news){
+    public News createNews(@Valid @RequestBody News news){
         return newsService.createNews(news);
     }
 
     @PutMapping("v1/news/{id}")
-    public News updateNews(@RequestBody News news, @PathVariable Long id){
+    public News updateNews(@Valid @RequestBody News news, @PathVariable Long id){
         News updateNews = newsService.getOneNews(id);
         updateNews.setName(news.getName());
         updateNews.setPerex(news.getPerex());
