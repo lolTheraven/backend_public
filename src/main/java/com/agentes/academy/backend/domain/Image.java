@@ -3,14 +3,8 @@ package com.agentes.academy.backend.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "image")
-public class Image {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id")
-    private Long id;
-
+@Table(name = "images")
+public class Image extends TimeStamps {
     @Column(name = "image_name")
     private String image_name;
 
@@ -25,17 +19,10 @@ public class Image {
     }
 
     public Image (String image_name, String mime_type, String path) {
+        super();
         this.image_name = image_name;
         this.mime_type = mime_type;
         this.path = path;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getImage_name() {

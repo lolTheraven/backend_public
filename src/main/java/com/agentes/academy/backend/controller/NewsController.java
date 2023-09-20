@@ -24,6 +24,8 @@ public class NewsController {
         this.imageService = imageService;
     }
 
+    public String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
+
     @GetMapping("/news")
     public String listOfNews(Model model, Category category){
 
@@ -62,6 +64,8 @@ public class NewsController {
             model.addAttribute("news", news);
             return "create_news";
         }
+        String path = image.getOriginalFilename();
+        news.setPath(path);
         newsService.createNews(news);
         imageService.saveImage(image);
         return "redirect:/news";

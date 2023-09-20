@@ -8,12 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "news")
-public class News {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class News extends TimeStamps {
 
     @Column(name = "name")
     @NotBlank(message = "The name is required.")
@@ -33,32 +28,20 @@ public class News {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @Column(name = "image_path")
+    private String path;
 
     public News(){
 
     }
 
-    public News(Long id, String name, String perex, String content,Category category, LocalDateTime createdAt, LocalDateTime updatedAt){
-        this.id = id;
+    public News(String name, String perex, String content,Category category, String path){
+        super();
         this.name = name;
         this.perex = perex;
         this.content = content;
         this.category = category;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Long getId(){
-        return id;
-    }
-
-    public void setId(Long id){
-        this.id = id;
+        this.path = path;
     }
 
     public String getName(){
@@ -93,19 +76,11 @@ public class News {
         this.category = category;
     }
 
-    public LocalDateTime getCreatedAt(){
-        return createdAt;
+    public String getPath() {
+        return path;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt){
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt(){
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt){
-        this.updatedAt = updatedAt;
+    public void setPath(String path) {
+        this.path = path;
     }
 }
