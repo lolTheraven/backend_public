@@ -63,7 +63,7 @@ public class NewsController {
             return "create_news";
         }
         newsService.createNews(news);
-        imageService.uploadImage(image);
+        imageService.saveImage(image);
         return "redirect:/news";
     }
 
@@ -77,12 +77,6 @@ public class NewsController {
         existingNews.setCategory(news.getCategory());
         existingNews.setUpdatedAt(LocalDateTime.now());
         newsService.updateNews(existingNews);
-        return "redirect:/news";
-    }
-
-    @PostMapping("/images")
-    public String uploadImage(@RequestBody MultipartFile image) throws IOException {
-        imageService.uploadImage(image);
         return "redirect:/news";
     }
 }

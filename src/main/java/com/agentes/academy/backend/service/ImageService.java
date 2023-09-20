@@ -1,5 +1,7 @@
 package com.agentes.academy.backend.service;
 
+import com.agentes.academy.backend.domain.Image;
+import com.agentes.academy.backend.repository.ImageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,9 +10,22 @@ import java.io.IOException;
 
 @Service
 public class ImageService {
-    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images";
+    private ImageRepository imageRepository;
 
-    public void uploadImage(MultipartFile image) throws IllegalStateException, IOException {
-        image.transferTo(new File(uploadDirectory +image.getOriginalFilename()));
+    public ImageService (ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
+
+    public String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
+
+    public Image saveImage(MultipartFile image) throws IllegalStateException, IOException {
+        image.transferTo(new File(uploadDirectory + image.getOriginalFilename()));
+
+        String image_name = image.getOriginalFilename();
+        String MIME_type = image.getContentType();
+        String path = uploadDirectory + image.getOriginalFilename();
+
+        Image saveImage = new Image(image_name, MIME_type, path);
+        return imageRepository.save(saveImage);
     }
 }
