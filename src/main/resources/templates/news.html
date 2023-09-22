@@ -56,6 +56,15 @@
                 </tbody>
 
             </table>
+            <nav class="w-100 d-flex justify-content-center">
+                <ul class="pagination">
+                    <div th:if="${total_pages > 1}" class="d-flex flex-row">
+                        <li class="page-item"><a class="page-link" th:if="${currentPage > 1}" th:href="@{'/news/page/' + ${currentPage - 1}}">Previous</a></li>
+                        <li th:each="i: ${#numbers.sequence(1, total_pages)}" class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${i}}">[[${i}]]</a></li>
+                        <li class="page-item"><a class="page-link" th:if="${currentPage < total_pages}" th:href="@{'/news/page/' + ${currentPage + 1}}">Next</a></li>
+                    </div>
+                </ul>
+            </nav>
         </div>
     </div>
 </body>

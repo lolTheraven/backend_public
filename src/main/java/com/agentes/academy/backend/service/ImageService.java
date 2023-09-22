@@ -19,8 +19,11 @@ public class ImageService {
     public String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
 
     public Image saveImage(MultipartFile image) throws IllegalStateException, IOException {
-        image.transferTo(new File(uploadDirectory + image.getOriginalFilename()));
 
+        File newImage = new File(uploadDirectory + image.getOriginalFilename());
+        if (!newImage.exists()) {
+            image.transferTo(newImage);
+        }
         String image_name = image.getOriginalFilename();
         String MIME_type = image.getContentType();
         String path = uploadDirectory + image.getOriginalFilename();

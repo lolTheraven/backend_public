@@ -5,6 +5,7 @@ import com.agentes.academy.backend.domain.News;
 import com.agentes.academy.backend.service.ImageService;
 import com.agentes.academy.backend.service.NewsService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class NewsController {
@@ -26,15 +28,34 @@ public class NewsController {
 
     public String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
 
-    @GetMapping("/news")
-    public String listOfNews(Model model, Category category){
+//    @GetMapping("/news")
+//    public String listOfNews(Model model, Category category){
+//
+//        if(category != null){
+//            model.addAttribute("news", newsService.getFilteredNews(category));
+//        }
+//        else {
+//            model.addAttribute("news", newsService.getAllNews());
+//        }
+//        return "news";
+//    }
 
-        if(category != null){
-            model.addAttribute("news", newsService.getFilteredNews(category));
-        }
-        else {
-            model.addAttribute("news", newsService.getAllNews());
-        }
+    @GetMapping("/news")
+    public String getAllPages(Model model) {
+        return getOnePage(model, 1);
+    }
+
+
+    @GetMapping("/news/page/{pageNumber}")
+    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage) {
+        Page<News> page = newsService.getPaginatedNews(currentPage);
+        int totalPages = page.getTotalPages();
+        Long totalItems = page.getTotalElements();
+        List<News> news = page.getContent();
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("total_pages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("news", news);
         return "news";
     }
 
