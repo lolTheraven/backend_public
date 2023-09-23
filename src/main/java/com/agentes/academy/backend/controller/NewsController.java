@@ -29,34 +29,28 @@ public class NewsController {
     public String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
 
     @GetMapping("/news")
-    public String getAllPages(Model model, Category category) {
-        return getOnePage(model, 1, category);
+    public String getAllPages(Model model) {
+        return getOnePage(model, 1, "id", "asc");
     }
 
 
     @GetMapping("/news/page/{pageNumber}")
-    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage, Category category) {
+    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage,
+                             @RequestParam( required = false, defaultValue = "id", name = "sortField") String sortField,
+                             @RequestParam( required = false, defaultValue = "asc", name = "sortDir") String sortDir) {
+        Page<News> page = newsService.getPaginatedNews(currentPage, sortField, sortDir);
+        int totalPages = page.getTotalPages();
+        Long totalItems = page.getTotalElements();
+        List<News> news = page.getContent();
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("total_pages", totalPages);
+        model.addAttribute("totalItems", totalItems);
 
-        if(category != null) {
-            Page<News> page = newsService.getPaginatedNewsFilteredByCategory(currentPage, category);
-            int totalPages = page.getTotalPages();
-            Long totalItems = page.getTotalElements();
-            List<News> news = page.getContent();
-            model.addAttribute("currentPage", currentPage);
-            model.addAttribute("total_pages", totalPages);
-            model.addAttribute("totalItems", totalItems);
-            model.addAttribute("news", news);
-        }
-        else {
-            Page<News> page = newsService.getPaginatedNews(currentPage);
-            int totalPages = page.getTotalPages();
-            Long totalItems = page.getTotalElements();
-            List<News> news = page.getContent();
-            model.addAttribute("currentPage", currentPage);
-            model.addAttribute("total_pages", totalPages);
-            model.addAttribute("totalItems", totalItems);
-            model.addAttribute("news", news);
-        }
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+
+        model.addAttribute("news", news);
         return "news";
     }
 

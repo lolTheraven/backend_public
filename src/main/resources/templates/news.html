@@ -38,10 +38,18 @@
             <table class = "table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Název</th>
-                    <th>Kategorie</th>
-                    <th>Datum vytvoření</th>
+                    <th>
+                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">ID</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">Název</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">Název</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=createdAt&sortDir=' + ${reverseSortDir}}">Datum vytvoření</a>
+                    </th>
                     <th>Detail</th>
                 </tr>
                 </thead>
@@ -59,9 +67,11 @@
             <nav class="w-100 d-flex justify-content-center">
                 <ul class="pagination">
                     <div th:if="${total_pages > 1}" class="d-flex flex-row">
-                        <li class="page-item"><a class="page-link" th:if="${currentPage > 1}" th:href="@{'/news/page/' + ${currentPage - 1}}">Previous</a></li>
+                        <li class="page-item"><a class="page-link" th:href="@{'/news/page/1'}">První</a></li>
+                        <li class="page-item"><a class="page-link" th:if="${currentPage > 1}" th:href="@{'/news/page/' + ${currentPage - 1}}">Předchozí</a></li>
                         <li th:each="i: ${#numbers.sequence(1, total_pages)}" class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${i}}">[[${i}]]</a></li>
-                        <li class="page-item"><a class="page-link" th:if="${currentPage < total_pages}" th:href="@{'/news/page/' + ${currentPage + 1}}">Next</a></li>
+                        <li class="page-item"><a class="page-link" th:if="${currentPage < total_pages}" th:href="@{'/news/page/' + ${currentPage + 1}}">Další</a></li>
+                        <li class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${total_pages}}">Poslední</a></li>
                     </div>
                 </ul>
             </nav>
