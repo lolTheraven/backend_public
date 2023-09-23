@@ -47,4 +47,9 @@ public class NewsService {
     public List<News> getFilteredNews(Category category){
         return newsRepository.findByCategory(category);
     }
+
+    public Page<News> getPaginatedNewsFilteredByCategory(int pageNumber, Category category) {
+        Pageable pageable = PageRequest.of(pageNumber-1, 5);
+        return newsRepository.findPaginatedByCategory(category, pageable);
+    }
 }

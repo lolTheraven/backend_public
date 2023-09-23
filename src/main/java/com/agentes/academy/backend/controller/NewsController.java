@@ -28,34 +28,35 @@ public class NewsController {
 
     public String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
 
-//    @GetMapping("/news")
-//    public String listOfNews(Model model, Category category){
-//
-//        if(category != null){
-//            model.addAttribute("news", newsService.getFilteredNews(category));
-//        }
-//        else {
-//            model.addAttribute("news", newsService.getAllNews());
-//        }
-//        return "news";
-//    }
-
     @GetMapping("/news")
-    public String getAllPages(Model model) {
-        return getOnePage(model, 1);
+    public String getAllPages(Model model, Category category) {
+        return getOnePage(model, 1, category);
     }
 
 
     @GetMapping("/news/page/{pageNumber}")
-    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage) {
-        Page<News> page = newsService.getPaginatedNews(currentPage);
-        int totalPages = page.getTotalPages();
-        Long totalItems = page.getTotalElements();
-        List<News> news = page.getContent();
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("total_pages", totalPages);
-        model.addAttribute("totalItems", totalItems);
-        model.addAttribute("news", news);
+    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage, Category category) {
+
+        if(category != null) {
+            Page<News> page = newsService.getPaginatedNewsFilteredByCategory(currentPage, category);
+            int totalPages = page.getTotalPages();
+            Long totalItems = page.getTotalElements();
+            List<News> news = page.getContent();
+            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("total_pages", totalPages);
+            model.addAttribute("totalItems", totalItems);
+            model.addAttribute("news", news);
+        }
+        else {
+            Page<News> page = newsService.getPaginatedNews(currentPage);
+            int totalPages = page.getTotalPages();
+            Long totalItems = page.getTotalElements();
+            List<News> news = page.getContent();
+            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("total_pages", totalPages);
+            model.addAttribute("totalItems", totalItems);
+            model.addAttribute("news", news);
+        }
         return "news";
     }
 
