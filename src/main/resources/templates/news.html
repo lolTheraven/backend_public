@@ -92,11 +92,36 @@
             <nav class="w-100 d-flex justify-content-center">
                 <ul class="pagination">
                     <div th:if="${total_pages > 1}" class="d-flex flex-row">
-                        <li class="page-item"><a class="page-link" th:href="@{'/news/page/1'}">První</a></li>
-                        <li class="page-item"><a class="page-link" th:if="${currentPage > 1}" th:href="@{'/news/page/' + ${currentPage - 1}}">Předchozí</a></li>
-                        <li th:each="i: ${#numbers.sequence(1, total_pages)}" class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${i}}">[[${i}]]</a></li>
-                        <li class="page-item"><a class="page-link" th:if="${currentPage < total_pages}" th:href="@{'/news/page/' + ${currentPage + 1}}">Další</a></li>
-                        <li class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${total_pages}}">Poslední</a></li>
+                        <span th:if="${category == null}">
+                            <li class="page-item"><a class="page-link" th:href="@{'/news/page/1'}">První</a></li>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <li class="page-item"><a class="page-link" th:href="@{'/news/page/1' + '?category=' + ${category}}">První</a></li>
+                        </span>
+                        <span th:if="${category == null}">
+                            <li class="page-item"><a class="page-link" th:if="${currentPage > 1}" th:href="@{'/news/page/' + ${currentPage - 1}}">Předchozí</a></li>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <li class="page-item"><a class="page-link" th:if="${currentPage > 1}" th:href="@{'/news/page/' + ${currentPage - 1} + '?category=' + ${category}}">Předchozí</a></li>
+                        </span>
+                        <span th:if="${category == null}">
+                            <li th:each="i: ${#numbers.sequence(1, total_pages)}" class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${i}}">[[${i}]]</a></li>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <li th:each="i: ${#numbers.sequence(1, total_pages)}" class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${i} + '?category=' + ${category}}">[[${i}]]</a></li>
+                        </span>
+                        <span th:if="${category == null}">
+                            <li class="page-item"><a class="page-link" th:if="${currentPage < total_pages}" th:href="@{'/news/page/' + ${currentPage + 1}}">Další</a></li>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <li class="page-item"><a class="page-link" th:if="${currentPage < total_pages}" th:href="@{'/news/page/' + ${currentPage + 1} + '?category=' + ${category}}">Další</a></li>
+                        </span>
+                        <span th:if="${category == null}">
+                            <li class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${total_pages}}">Poslední</a></li>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <li class="page-item"><a class="page-link" th:href="@{'/news/page/' + ${total_pages} + '?category=' + ${category}}">Poslední</a></li>
+                        </span>
                     </div>
                 </ul>
             </nav>
