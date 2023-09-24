@@ -55,4 +55,12 @@ public class NewsService {
         Pageable pageable = PageRequest.of(pageNumber-1, 5);
         return newsRepository.findPaginatedByCategory(category, pageable);
     }
+
+    public Page<News> getPaginatedNewsFilteredByCategorySorted(int pageNumber, String sortField, String sortDirection, Category category) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending():
+                Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber-1, 5, sort);
+        return newsRepository.findPaginatedByCategory(category, pageable);
+    }
+
 }

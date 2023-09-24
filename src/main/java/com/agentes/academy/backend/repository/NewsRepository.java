@@ -15,4 +15,6 @@ public interface NewsRepository extends JpaRepository<News,Long> {
 
     @Query("FROM News WHERE category = ?1")
     Page<News> findPaginatedByCategory(Category category, Pageable pageable);
+
+
 }

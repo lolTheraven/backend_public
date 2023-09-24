@@ -26,31 +26,47 @@ public class NewsController {
         this.imageService = imageService;
     }
 
-    public String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-
     @GetMapping("/news")
-    public String getAllPages(Model model) {
-        return getOnePage(model, 1, "id", "asc");
+    public String getAllPages(Model model, Category category) {
+        return getOnePage(model, 1, "id", "asc", category);
     }
 
 
     @GetMapping("/news/page/{pageNumber}")
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage,
                              @RequestParam( required = false, defaultValue = "id", name = "sortField") String sortField,
-                             @RequestParam( required = false, defaultValue = "asc", name = "sortDir") String sortDir) {
-        Page<News> page = newsService.getPaginatedNews(currentPage, sortField, sortDir);
-        int totalPages = page.getTotalPages();
-        Long totalItems = page.getTotalElements();
-        List<News> news = page.getContent();
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("total_pages", totalPages);
-        model.addAttribute("totalItems", totalItems);
+                             @RequestParam( required = false, defaultValue = "asc", name = "sortDir") String sortDir,
+                             Category category) {
+        if(category == null) {
+            Page<News> page = newsService.getPaginatedNews(currentPage, sortField, sortDir);
+            int totalPages = page.getTotalPages();
+            Long totalItems = page.getTotalElements();
+            List<News> news = page.getContent();
+            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("total_pages", totalPages);
+            model.addAttribute("totalItems", totalItems);
 
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+            model.addAttribute("sortField", sortField);
+            model.addAttribute("sortDir", sortDir);
+            model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
 
-        model.addAttribute("news", news);
+            model.addAttribute("news", news);
+        } else {
+            Page<News> page = newsService.getPaginatedNewsFilteredByCategorySorted(currentPage, sortField, sortDir, category);
+            int totalPages = page.getTotalPages();
+            Long totalItems = page.getTotalElements();
+            List<News> news = page.getContent();
+            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("total_pages", totalPages);
+            model.addAttribute("totalItems", totalItems);
+
+            model.addAttribute("sortField", sortField);
+            model.addAttribute("sortDir", sortDir);
+            model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+
+            model.addAttribute("news", news);
+        }
+
         return "news";
     }
 
@@ -88,15 +104,21 @@ public class NewsController {
     }
 
     @PostMapping("/news/{id}")
-    public String updateNews(@PathVariable Long id, @ModelAttribute("news") News news, Model model){
+    public String updateNews(@Valid @PathVariable Long id, @ModelAttribute("news") News news, Model model, BindingResult bindingResult){
         News existingNews = newsService.getOneNews(id);
-        existingNews.setId(id);
         existingNews.setName(news.getName());
         existingNews.setPerex(news.getPerex());
         existingNews.setContent(news.getContent());
         existingNews.setCategory(news.getCategory());
         existingNews.setUpdatedAt(LocalDateTime.now());
-        newsService.updateNews(existingNews);
-        return "redirect:/news";
+        boolean errors = bindingResult.hasErrors();
+        System.out.println(errors);
+        if(errors) {
+            model.addAttribute("news", news);
+            return "edit_news";
+        } else {
+            newsService.updateNews(existingNews);
+            return "redirect:/news";
+        }
     }
 }
