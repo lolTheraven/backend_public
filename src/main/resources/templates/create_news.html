@@ -40,7 +40,7 @@
                 <div class="d-flex flex-row justify-content-between mx-5">
                     <div>
                         <div class ="form-group ">
-                            <label> Název * </label>
+                            <h5> Název * </h5>
                             <textarea
                                     type = "text"
                                     name = "name"
@@ -53,7 +53,7 @@
                             <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
                         </div>
                         <div class ="form-group d-flex flex-column">
-                            <label> Kategorie * </label>
+                            <h5> Kategorie * </h5>
                             <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
                                 <option th:value="Interní">Interní</option>
                                 <option th:value="Veřejný">Veřejný</option>
@@ -63,7 +63,7 @@
                     <div style="width: 337px">
                         <div class="form-group d-flex flex-column">
                             <div class="d-flex flex-row justify-content-between">
-                                <label>Úvodní fotografie *</label>
+                                <h5>Úvodní fotografie *</h5>
                                 <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/jpg"
                                        onchange="document.getElementById('pic').src = window.URL.createObjectURL(this.files[0])">
                                 <label for="image" class="upload_btn">Vložit fotografii</label>
@@ -81,7 +81,7 @@
                 <h2>Obsah novinky</h2><br />
                 <div class="d-flex flex-row justify-content-between mx-5">
                     <div class ="form-group">
-                        <label> Perex * </label>
+                        <h5> Perex * </h5>
                         <textarea
                                 cols = "40"
                                 rows="7"
@@ -94,7 +94,7 @@
                         <p th:if="${#fields.hasErrors('perex')}" th:errorclass="error" th:errors="*{perex}"></p>
                     </div>
                     <div class ="form-group">
-                        <label> Text novinky * </label>
+                        <h5> Text novinky * </h5>
                         <textarea
                                 cols = "40"
                                 rows="7"

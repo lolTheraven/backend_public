@@ -23,7 +23,7 @@
             <div class="d-flex flex-row justify-content-between mx-5">
                 <div>
                     <div class ="form-group ">
-                        <label> Název * </label>
+                        <h5> Název * </h5>
                         <textarea
                                 type = "text"
                                 name = "name"
@@ -36,7 +36,7 @@
                         <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
                     </div>
                     <div class ="form-group d-flex flex-column">
-                        <label> Kategorie * </label>
+                        <h5> Kategorie * </h5>
                         <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
                             <option value="" disabled selected hidden>Vyberte kategorii...</option>
                             <option th:value="Interní">Interní</option>
@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <div class="form-group">
-                        <label>Úvodní fotografie *</label>
+                        <h5>Úvodní fotografie *</h5>
                         <input type="file"
                                height="80px"
                                width="110px"/>
@@ -60,7 +60,7 @@
             <h2>Obsah novinky</h2><br />
             <div class="d-flex flex-row justify-content-between mx-5">
                 <div class ="form-group">
-                    <label> Perex * </label>
+                    <h5> Perex * </h5>
                     <textarea
                             cols = "40"
                             rows="7"
@@ -73,7 +73,7 @@
                     <p th:if="${#fields.hasErrors('perex')}" th:errorclass="error" th:errors="*{perex}"></p>
                 </div>
                 <div class ="form-group">
-                    <label> Text novinky * </label>
+                    <h5> Text novinky * </h5>
                     <textarea
                             cols = "40"
                             rows="7"
