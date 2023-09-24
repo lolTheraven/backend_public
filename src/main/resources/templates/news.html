@@ -19,7 +19,12 @@
                 <div class="m-4 d-flex flex-column w-25">
                     <h4 class="mb-3">Kategorie</h4>
                     <select type="text" name="category" required>
-                        <option selected disabled>Vyberte Kategorii...</option>
+                        <span th:if="${category == null}">
+                            <option selected disabled>Vyberte kategorii...</option>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <option th:text="${category}"></option>
+                        </span>
                         <option th:value="Interní">Interní</option>
                         <option th:value="Veřejný">Veřejný</option>
                     </select>
@@ -39,16 +44,36 @@
                 <thead>
                 <tr>
                     <th>
-                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">ID</a>
+                        <span th:if="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">ID</a>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir} + '&category=' + ${category}}">ID</a>
+                        </span>
                     </th>
                     <th>
-                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">Název</a>
+                        <span th:if="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">Název</a>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir} + '&category=' + ${category}}">Název</a>
+                        </span>
                     </th>
                     <th>
-                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">Název</a>
+                        <span th:if="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">Kategorie</a>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir} + '&category=' + ${category}}">Kategorie</a>
+                        </span>
                     </th>
                     <th>
-                        <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=createdAt&sortDir=' + ${reverseSortDir}}">Datum vytvoření</a>
+                        <span th:if="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=createdAt&sortDir=' + ${reverseSortDir}}">Datum vytvoření</a>
+                        </span>
+                        <span th:unless="${category == null}">
+                            <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=createdAt&sortDir=' + ${reverseSortDir} + '&category=' + ${category}}">Datum vytvoření</a>
+                        </span>
                     </th>
                     <th>Detail</th>
                 </tr>

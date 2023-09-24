@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NewsService {
@@ -45,15 +44,6 @@ public class NewsService {
 
     public News updateNews(News news){
         return newsRepository.save(news);
-    }
-
-    public List<News> getFilteredNews(Category category){
-        return newsRepository.findByCategory(category);
-    }
-
-    public Page<News> getPaginatedNewsFilteredByCategory(int pageNumber, Category category) {
-        Pageable pageable = PageRequest.of(pageNumber-1, 5);
-        return newsRepository.findPaginatedByCategory(category, pageable);
     }
 
     public Page<News> getPaginatedNewsFilteredByCategorySorted(int pageNumber, String sortField, String sortDirection, Category category) {
