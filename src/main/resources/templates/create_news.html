@@ -26,91 +26,92 @@
     </style>
 </head>
 <body>
-    <form th:action="@{/news}" th:object = "${news}" method="POST" enctype="multipart/form-data">
-        <div class = "container">
-            <div class="row d-flex justify-content-between align-items-center my-5">
-                <h1 class="m-0">Vytvoření nové novinky</h1>
-                <div>
-                    <a th:href="@{/news}" class="btn btn-primary btn-sm m-0 p-2 text-white">Seznam novinek</a>
-                    <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Vytvořit</button>
-                </div>
+<form th:action="@{/news}" th:object = "${news}" method="POST" enctype="multipart/form-data">
+    <div class = "container">
+        <div class="row d-flex justify-content-between align-items-center my-5">
+            <h1 class="m-0">Vytvoření nové novinky</h1>
+            <div>
+                <a th:href="@{/news}" class="btn btn-primary btn-sm m-0 p-2 text-white">Seznam novinek</a>
+                <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Vytvořit</button>
             </div>
-            <div class="row d-flex flex-column border border-info rounded mx-3 mb-4 p-4">
-                <h2>Základní informace</h2><br />
-                <div class="d-flex flex-row justify-content-between mx-5">
-                    <div>
-                        <div class ="form-group ">
-                            <h5> Název * </h5>
-                            <textarea
-                                    type = "text"
-                                    name = "name"
-                                    th:field = "*{name}"
-                                    class = "form-control"
-                                    cols = "40"
-                                    rows="1"
-                                    style="resize: none"
-                            ></textarea>
-                            <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
-                        </div>
-                        <div class ="form-group d-flex flex-column">
-                            <h5> Kategorie * </h5>
-                            <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
-                                <option th:value="Interní">Interní</option>
-                                <option th:value="Veřejný">Veřejný</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div style="width: 337px">
-                        <div class="form-group d-flex flex-column">
-                            <div class="d-flex flex-row justify-content-between">
-                                <h5>Úvodní fotografie *</h5>
-                                <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/jpg"
-                                       onchange="document.getElementById('pic').src = window.URL.createObjectURL(this.files[0])">
-                                <label for="image" class="upload_btn">Vložit fotografii</label>
-                            </div>
-                            <div>
-                                <img id="pic" alt="your image" width="337" height="180" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="row d-flex flex-column border border-info rounded mx-3 p-4">
-                <h2>Obsah novinky</h2><br />
-                <div class="d-flex flex-row justify-content-between mx-5">
-                    <div class ="form-group">
-                        <h5> Perex * </h5>
-                        <textarea
-                                cols = "40"
-                                rows="7"
-                                type = "text"
-                                name = "perex"
-                                th:field = "*{perex}"
-                                class = "form-control"
-                                style="resize: none"
-                        ></textarea>
-                        <p th:if="${#fields.hasErrors('perex')}" th:errorclass="error" th:errors="*{perex}"></p>
-                    </div>
-                    <div class ="form-group">
-                        <h5> Text novinky * </h5>
-                        <textarea
-                                cols = "40"
-                                rows="7"
-                                type = "text"
-                                name = "content"
-                                th:field = "*{content}"
-                                class = "form-control"
-                                style="resize: none"
-                        ></textarea>
-                        <p th:if="${#fields.hasErrors('content')}" th:errorclass="error" th:errors="*{content}"></p>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </form>
+        <div class="row d-flex flex-column border border-info rounded mx-3 mb-4 p-4">
+            <h2>Základní informace</h2><br />
+            <div class="d-flex flex-row justify-content-between mx-5">
+                <div>
+                    <div class ="form-group ">
+                        <h5> Název * </h5>
+                        <textarea
+                                type = "text"
+                                name = "name"
+                                th:field = "*{name}"
+                                class = "form-control"
+                                cols = "40"
+                                rows="1"
+                                style="resize: none"
+                        ></textarea>
+                        <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
+                    </div>
+                    <div class ="form-group d-flex flex-column">
+                        <h5> Kategorie * </h5>
+                        <select id="category" required th:field="*{category}" class="form-select form-select-lg mb-3">
+                            <option th:value="Interní">Interní</option>
+                            <option th:value="Veřejný">Veřejný</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="width: 337px">
+                    <div class="form-group d-flex flex-column">
+                        <div class="d-flex flex-row justify-content-between">
+                            <h5>Úvodní fotografie *</h5>
+                            <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/jpg"
+                                   onchange="document.getElementById('pic').src = window.URL.createObjectURL(this.files[0])">
+                            <label for="image" class="upload_btn">Vložit fotografii</label>
+                        </div>
+                        <p class="error" th:text="${error_msg}"></p>
+                        <div>
+                            <img id="pic" alt="your image" width="337" height="180" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row d-flex flex-column border border-info rounded mx-3 p-4">
+            <h2>Obsah novinky</h2><br />
+            <div class="d-flex flex-row justify-content-between mx-5">
+                <div class ="form-group">
+                    <h5> Perex * </h5>
+                    <textarea
+                            cols = "40"
+                            rows="7"
+                            type = "text"
+                            name = "perex"
+                            th:field = "*{perex}"
+                            class = "form-control"
+                            style="resize: none"
+                    ></textarea>
+                    <p th:if="${#fields.hasErrors('perex')}" th:errorclass="error" th:errors="*{perex}"></p>
+                </div>
+                <div class ="form-group">
+                    <h5> Text novinky * </h5>
+                    <textarea
+                            cols = "40"
+                            rows="7"
+                            type = "text"
+                            name = "content"
+                            th:field = "*{content}"
+                            class = "form-control"
+                            style="resize: none"
+                    ></textarea>
+                    <p th:if="${#fields.hasErrors('content')}" th:errorclass="error" th:errors="*{content}"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
 </body>
 </html>
 

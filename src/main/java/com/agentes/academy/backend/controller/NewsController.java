@@ -98,8 +98,12 @@ public class NewsController {
             model.addAttribute("news", news);
             return "create_news";
         }
-        String path = image.getOriginalFilename();
-        news.setPath(path);
+        if (image.getOriginalFilename().isEmpty()) {
+            model.addAttribute("news", news);
+            model.addAttribute("error_msg", "Image is required");
+            return "create_news";
+        }
+        news.setPath(image.getOriginalFilename());
         newsService.createNews(news);
         imageService.saveImage(image);
         return "redirect:/news";
