@@ -49,6 +49,8 @@
                                 cols = "40"
                                 rows="1"
                                 style="resize: none"
+                                required
+                                maxlength="200"
                         ></textarea>
                         <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
                     </div>
@@ -91,6 +93,8 @@
                             th:field = "*{perex}"
                             class = "form-control"
                             style="resize: none"
+                            required
+                            maxlength="450"
                     ></textarea>
                     <p th:if="${#fields.hasErrors('perex')}" th:errorclass="error" th:errors="*{perex}"></p>
                 </div>
@@ -104,6 +108,7 @@
                             th:field = "*{content}"
                             class = "form-control"
                             style="resize: none"
+                            required
                     ></textarea>
                     <p th:if="${#fields.hasErrors('content')}" th:errorclass="error" th:errors="*{content}"></p>
                 </div>

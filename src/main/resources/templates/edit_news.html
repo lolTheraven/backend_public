@@ -7,6 +7,19 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <style>
+        input[type='file'] {
+            color: transparent;
+            display: none;
+        }
+
+
+        .upload_btn {
+            cursor: pointer;
+            border: 2px solid #1492e5;
+            padding: 2px 10px 2px 10px;
+        }
+    </style>
 </head>
 <body>
 <form th:action="@{/news/{id} (id=${news.id})}" th:object = "${news}" method="POST">
@@ -32,6 +45,8 @@
                                 cols = "40"
                                 rows="1"
                                 style="resize: none"
+                                required
+                                maxlength="200"
                         ></textarea>
                         <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
                     </div>
@@ -44,12 +59,18 @@
                         </select>
                     </div>
                 </div>
-                <div>
-                    <div class="form-group">
-                        <h5>Úvodní fotografie *</h5>
-                        <input type="file"
-                               height="80px"
-                               width="110px"/>
+                <div style="width: 337px">
+                    <div class="form-group d-flex flex-column">
+                        <div class="d-flex flex-row justify-content-between">
+                            <h5>Úvodní fotografie *</h5>
+                            <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/jpg"
+                                   onchange="document.getElementById('pic').src = window.URL.createObjectURL(this.files[0])">
+                            <label for="image" class="upload_btn">Změnit fotografii</label>
+                        </div>
+                        <p class="error" th:text="${error_msg}"></p>
+                        <div>
+                            <img id="pic" alt="your image" width="337" height="180" th:src="@{${'/images/' + news.path}}" />
+                        </div>
                     </div>
                 </div>
 
@@ -69,6 +90,8 @@
                             th:text = "*{perex}"
                             class = "form-control"
                             style="resize: none"
+                            required
+                            maxlength="450"
                     ></textarea>
                     <p th:if="${#fields.hasErrors('perex')}" th:errorclass="error" th:errors="*{perex}"></p>
                 </div>
@@ -82,6 +105,7 @@
                             th:text = "*{content}"
                             class = "form-control"
                             style="resize: none"
+                            required
                     ></textarea>
                     <p th:if="${#fields.hasErrors('content')}" th:errorclass="error" th:errors="*{content}"></p>
                 </div>

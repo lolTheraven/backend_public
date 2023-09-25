@@ -110,21 +110,16 @@ public class NewsController {
     }
 
     @PostMapping("/news/{id}")
-    public String updateNews(@Valid @PathVariable Long id, @ModelAttribute("news") News news, Model model, BindingResult bindingResult){
+    public String updateNews(@Valid @PathVariable Long id, @ModelAttribute("news") News news, Model model, @RequestBody MultipartFile image) throws  IOException{
         News existingNews = newsService.getOneNews(id);
         existingNews.setName(news.getName());
         existingNews.setPerex(news.getPerex());
         existingNews.setContent(news.getContent());
         existingNews.setCategory(news.getCategory());
         existingNews.setUpdatedAt(LocalDateTime.now());
-        boolean errors = bindingResult.hasErrors();
-        System.out.println(errors);
-        if(errors) {
-            model.addAttribute("news", news);
-            return "edit_news";
-        } else {
-            newsService.updateNews(existingNews);
-            return "redirect:/news";
-        }
+        existingNews.setPath(image.getOriginalFilename());
+        newsService.updateNews(existingNews);
+        return "redirect:/news";
+
     }
 }
