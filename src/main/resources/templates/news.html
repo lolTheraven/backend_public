@@ -7,6 +7,25 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rows = document.querySelectorAll(".clickable-row");
+            rows.forEach(function (row) {
+                row.addEventListener("click", function () {
+                    const url = row.getAttribute("data-href");
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+    <style>
+        th:last-child, td:last-child {
+            width: 300px;
+        }
+        th, td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -75,16 +94,14 @@
                             <a th:href="@{'/news/page/' + ${currentPage} + '?sortField=createdAt&sortDir=' + ${reverseSortDir} + '&category=' + ${category}}">Datum vytvoření</a>
                         </span>
                 </th>
-                <th>Detail</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each = "news: ${news}">
-                <td th:text = "${news.id}"><a th:href="@{/news/{id}(id=${news.id})}"></a></td>
-                <td th:text = "${news.name}"><a th:href="@{/news/{id}(id=${news.id})}"></a></td>
-                <td th:text = "${news.category}"><a th:href="@{/news/{id}(id=${news.id})}"></a></td>
+            <tr th:each = "news: ${news}" th:attr="data-href=@{'/news/' + ${news.id}}" class="clickable-row" style="cursor: pointer">
+                <td th:text = "${news.id}"></td>
+                <td th:text = "${news.name}"></td>
+                <td th:text = "${news.category}"></td>
                 <td th:text="${#temporals.format(news.createdAt, 'dd.MM.yyyy')}"></td>
-                <td><a th:href="@{/news/{id}(id=${news.id})}">Detail</a></td>
             </tr>
             </tbody>
 

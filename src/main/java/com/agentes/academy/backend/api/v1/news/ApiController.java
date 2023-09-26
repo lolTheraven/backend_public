@@ -1,4 +1,4 @@
-package com.agentes.academy.backend.api;
+package com.agentes.academy.backend.api.v1.news;
 
 import com.agentes.academy.backend.domain.News;
 import com.agentes.academy.backend.service.NewsService;
