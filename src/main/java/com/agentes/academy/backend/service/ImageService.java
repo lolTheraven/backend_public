@@ -20,6 +20,16 @@ public class ImageService {
 
     public Image saveImage(MultipartFile image) throws IllegalStateException, IOException {
 
+        File directory = new File(uploadDirectory);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directories created successfully.");
+            } else {
+                System.err.println("Failed to create directories.");
+            }
+        }
+
+
         File newImage = new File(uploadDirectory + image.getOriginalFilename());
         if (!newImage.exists()) {
             image.transferTo(newImage);

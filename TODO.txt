@@ -1,6 +1,0 @@
-load test data
-change image in edit news
-alert after change
-spring security
-api
-clickable row in mainpage

@@ -26,6 +26,10 @@
     </style>
 </head>
 <body>
+<div class="d-flex flex-row justify-content-between p-2 align-items-center" style="background-color: #2699FB">
+    <h1 class="mx-5" style="color: white">agenet</h1>
+    <a class="mx-5 text-white p-2 h5 my-0" style="cursor: pointer" th:href="@{'/logout'}">Odhlásit se</a>
+</div>
 <form th:action="@{/news}" th:object = "${news}" method="POST" enctype="multipart/form-data">
     <div class = "container">
         <div class="row d-flex justify-content-between align-items-center my-5">
@@ -35,7 +39,7 @@
                 <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Vytvořit</button>
             </div>
         </div>
-        <div class="row d-flex flex-column border border-info rounded mx-3 mb-4 p-4">
+        <div class="row d-flex flex-column mx-3 mb-5 p-4" style="border: 1px solid #7FC4FD; border-radius: 30px">
             <h2>Základní informace</h2><br />
             <div class="d-flex flex-row justify-content-between mx-5">
                 <div>
@@ -80,7 +84,7 @@
             </div>
         </div>
 
-        <div class="row d-flex flex-column border border-info rounded mx-3 p-4">
+        <div class="row d-flex flex-column mx-3 p-4 mb-5" style="border: 1px solid #7FC4FD; border-radius: 30px">
             <h2>Obsah novinky</h2><br />
             <div class="d-flex flex-row justify-content-between mx-5">
                 <div class ="form-group">

@@ -28,12 +28,16 @@
     </style>
 </head>
 <body>
+<div class="d-flex flex-row justify-content-between p-2 align-items-center" style="background-color: #2699FB">
+    <h1 class="mx-5" style="color: white">agenet</h1>
+    <a class="mx-5 text-white p-2 h5 my-0" style="cursor: pointer" th:href="@{'/logout'}">Odhlásit se</a>
+</div>
 <div class="container">
     <div class="row d-flex justify-content-between align-items-center my-5">
         <h1 class="m-0">Novinky</h1>
         <a th:href = "@{/news/new}" class = "btn btn-primary btn-sm m-0 p-2 text-white">Vytvořit novinku</a>
     </div>
-    <div class="row m-3 border border-info rounded d-flex flex-column">
+    <div class="row m-3  d-flex flex-column" style="border: 1px solid #7FC4FD; border-radius: 30px">
         <form th:action="@{/news}"  method="GET">
             <div class="m-4 d-flex flex-column w-25">
                 <h4 class="mb-3">Kategorie</h4>

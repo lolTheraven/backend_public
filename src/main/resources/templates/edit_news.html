@@ -13,22 +13,26 @@
             display: none;
         }
 
-
         .upload_btn {
             cursor: pointer;
             border: 2px solid #1492e5;
             padding: 2px 10px 2px 10px;
         }
     </style>
+
 </head>
 <body>
+<div class="d-flex flex-row justify-content-between p-2 align-items-center" style="background-color: #2699FB">
+    <h1 class="mx-5" style="color: white">agenet</h1>
+    <a class="mx-5 text-white p-2 h5 my-0" style="cursor: pointer" th:href="@{'/logout'}">Odhlásit se</a>
+</div>
 <form th:action="@{/news/{id} (id=${news.id})}" th:object = "${news}" method="POST">
     <div class = "container">
         <div class="row d-flex justify-content-between align-items-center my-5">
             <h1 class="m-0">Vytvoření nové novinky</h1>
             <div>
-                <a th:href="@{/news}" class="btn btn-primary btn-sm m-0 p-2 text-white">Seznam novinek</a>
-                <button type="submit" class = "btn btn-primary btn-sm m-0 p-2">Uložit</button>
+                <a th:href="@{/news}" class="btn btn-primary btn-sm m-0 p-2 text-white" onClick="onSave()">Seznam novinek</a>
+                <button type="submit" class = "btn btn-primary btn-sm m-0 p-2" >Uložit</button>
             </div>
         </div>
         <div class="row d-flex flex-column border border-info rounded mx-3 mb-5 p-4">
@@ -38,6 +42,7 @@
                     <div class ="form-group ">
                         <h5> Název * </h5>
                         <textarea
+                                id="name"
                                 type = "text"
                                 name = "name"
                                 th:text = "*{name}"
@@ -92,6 +97,7 @@
                             style="resize: none"
                             required
                             maxlength="450"
+                            id="perex"
                     ></textarea>
                     <p th:if="${#fields.hasErrors('perex')}" th:errorclass="error" th:errors="*{perex}"></p>
                 </div>
@@ -106,6 +112,7 @@
                             class = "form-control"
                             style="resize: none"
                             required
+                            id="content"
                     ></textarea>
                     <p th:if="${#fields.hasErrors('content')}" th:errorclass="error" th:errors="*{content}"></p>
                 </div>
@@ -114,6 +121,24 @@
 
     </div>
 </form>
+<script>
+    const nameInitialState = document.getElementById("name").value;
+    const categoryInitialState = document.getElementById("category").value;
+    const perexInitialState = document.getElementById("perex").value;
+    const contentInitialState = document.getElementById("content").value;
+
+    function onSave()
+    {
+        const nameCurrentState  = document.getElementById("name").value;
+        const categoryCurrentState  = document.getElementById("category").value;
+        const perexCurrentState  = document.getElementById("perex").value;
+        const contentCurrentState  = document.getElementById("content").value;
+
+        if (!(nameInitialState === nameCurrentState && categoryInitialState === categoryCurrentState && perexInitialState === perexCurrentState && contentInitialState === contentCurrentState)) {
+            window.onbeforeunload = function(){ return "Are you sure you want to leave the page?"; }
+        }
+    }
+</script>
 </body>
 </html>
 
